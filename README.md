@@ -64,4 +64,4 @@ ninja -C build check-sblp
 ```
 
 ## Paper
-TODO
+We have written a [paper](https://github.com/rafasumi/mlir-tutorial/blob/main/assets/MLIR_tutorial_SBLP_2025.pdf) to be used as a guide for this tutorial.
