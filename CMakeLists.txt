@@ -30,6 +30,7 @@ add_definitions(${LLVM_DEFINITIONS})
 #===============================================================================
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+message(STATUS "MAIN CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_subdirectory(lib)

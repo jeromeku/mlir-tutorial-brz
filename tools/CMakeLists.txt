@@ -1,7 +1,12 @@
 set(LLVM_LINK_COMPONENTS Support)
 
+message(STATUS "tools: MLIR_DIALECT_LIBS: ${MLIR_DIALECT_LIBS}")
+message(STATUS "tools: MLIR_CONVERSION_LIBS: ${MLIR_CONVERSION_LIBS}")
 get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 get_property(conversion_libs GLOBAL PROPERTY MLIR_CONVERSION_LIBS)
+
+message(STATUS "tools: dialect_libs: ${dialect_libs}")
+message(STATUS "tools: conversion_libs: ${conversion_libs}")
 
 add_llvm_executable(sblp-opt
   sblp-opt.cpp
@@ -16,8 +21,10 @@ target_link_libraries(sblp-opt
 
   # MLIR dependencies
   MLIROptLib
-  ${dialect_libs}
-  ${conversion_libs}
+  MLIRRegisterAllDialects
+  MLIRRegisterAllPasses
+  # ${dialect_libs}
+  # ${conversion_libs}
 )
 
 target_include_directories(sblp-opt
