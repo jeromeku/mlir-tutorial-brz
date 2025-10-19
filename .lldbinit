@@ -1,0 +1,41 @@
+# -------------------------------------
+# Stepping & display behavior defaults
+# -------------------------------------
+
+settings set stop-disassembly-display always
+# When you stop, always show disassembly around the current PC.
+# Super helpful in optimized or inlined code.
+
+settings set target.process.thread.step-avoid-regexp "llvm::|mlir::detail::"
+# While stepping over/into, LLDB avoids frames matching this regex.
+# Keeps you out of common library boilerplate while you focus on your code.
+
+settings set target.inline-breakpoint-strategy always
+# Allow breakpoints on inlined functions reliably.
+# LLVM/MLIR code is heavily inlined; this helps you land where you expect.
+
+settings set target.print-decls true
+# Show C++ types with their full declarations when printing variables.
+
+# ------------------------------------------------
+# Map build tree paths back to source tree paths.
+# If object files embed "build" paths, this points
+# LLDB to your checked-out sources on disk.
+# ------------------------------------------------
+
+settings append target.source-map /home/jeromeku/llvm-project/build /home/jeromeku/llvm-project
+# First arg = prefix to replace (what the debug info contains),
+# second arg = real root on your machine.
+
+# ------------------------------------------------------
+# LLVM/Clang/LLDB data formatters (highly recommended)
+# These make APInt, StringRef, SmallVector, DenseMap, etc.
+# print like normal humans would prefer.
+# ------------------------------------------------------
+
+command script import /home/jeromeku/llvm-project/llvm/utils/lldbDataFormatters.py
+# Loads a bundle of summaries/printers for LLVM ADTs.
+
+type summary add --regex --summary-string "${var}" "llvm::StringRef"
+# Example: ensure StringRef shows the actual string contents concisely.
+# (The formatter script already handles many types; this is a friendly override/demo.)
